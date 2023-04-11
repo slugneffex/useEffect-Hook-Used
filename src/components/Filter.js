@@ -4,9 +4,9 @@ const Filter = ({ filterData }) => {
     return (
         <div>
             {filterData.map((data) => {
-             return(  <button>{data.title}; </button> )
+             return(  <button>{data.title} </button> )
             })}
-            <p></p>
+            <p> </p>
         </div>
     )
 }
