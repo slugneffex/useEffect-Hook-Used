@@ -1,28 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from './Card';
 
 
 
-const Cards = ({ courses }) => {
+const Cards = (props) => {
 
-    let allCourses = [];
-
+    let courses = props.courses;
+    let category = props.category;
+    const [likedCourses, setLikedCourses] = useState([]);
+    
     // return you a list of all courses received from the api response
-    const getCourses = () => {
-        Object.values(courses).forEach((coursesCategory) => {
-            coursesCategory.forEach((course) => {
-                allCourses.push(course);
+   function getCourses() {
+        if(category === "All") {
+            let allCourses = [];
+            Object.values(courses).forEach(array => {
+               array.forEach(courseData => {
+                   allCourses.push(courseData);
+               })
             })
-        })
-        return allCourses;
-    }
+            return allCourses;
+        }
+        else {
+            return courses[category];
+        }
+   }
+
+
     return (
-        <div>
-            {
-                getCourses().map((course) => {
-                    <Card course={course} />
-                })
-            }
+        <div className='flex flex-wrap justify-center gap-4 mb-4'>
+           {
+            getCourses().map( (course) => (
+                <Card key={course.id} course={course} likedCourses={likedCourses} setLikedCourses={setLikedCourses} />
+            ))
+           }
         </div>
     )
 }
